@@ -3,7 +3,6 @@ using System;
 public interface IEngine { void Start(); }
 
 public interface IDisplay { void ShowInfo(); }
-public record Registration(string VIN, string Owner);
 
 public abstract class Vehicle
 {
@@ -20,13 +19,13 @@ public abstract class Vehicle
 // Class - Can make it partial so you can have it across multiple files
 public sealed class Car : Vehicle, IEngine, IDisplay {
     private readonly string color;
-    private Registration Reg { get; init; }
+    private string VIN { get; init; }
     public static int Count { get; private set; }
     // Static Constructor
     static Car() => Count = 0;
     // Constructor (calling parent constructor as well)
-    public Car(string brand, int year, string color, Registration reg) : base(brand, year) {
-        this.Reg = reg; // This keyword 
+    public Car(string brand, int year, string color, string VIN) : base(brand, year) {
+        this.VIN = VIN; // This keyword 
         this.color = color;
         Count++;
     }
@@ -40,9 +39,8 @@ public sealed class Car : Vehicle, IEngine, IDisplay {
 
 public class Program {
     public static void Main() {
-        Registration r = new Registration("X12345", "Ronak");
 
-        Car myCar = new Car("Tesla", 2024, "orange", r) {
+        Car myCar = new Car("Tesla", 2024, "orange", "X12345") {
             Year = 2025 // using object initializer
         };
 
