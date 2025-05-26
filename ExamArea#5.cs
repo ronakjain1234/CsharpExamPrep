@@ -2,9 +2,11 @@ using System;
 using System.Reflection;
 
 // EnRegner.dll library
+// Assemblies is a complied output of your C# code
 // DLLs are examples of Assemblies. Primary used for creating reusable libraries
-// of code that can be shared acorss different applications
-// They contain CIL code, metadata(info about types,members and attributes), and manifest (Table of Context)
+// of code that can be shared acorss different applications. Language independent
+// They contain CIL code, metadata(info about types,members and attributes), and manifest (identity card including version, assembly name and file list)
+// They have a self-describing nature
 namespace EnRegner {
     public class EnRegner {
         public double Plus(double a, double b) => a + b;
