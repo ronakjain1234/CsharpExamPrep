@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 // Multiple functions called with one delegate
+// Function pointers in C refer to raw memory addresses and no type check
 // In contrast, .NET delegates are type-safe, secure, object-oriented references 
 // to methods. Delegates encapsulate not only the method address but also the 
 // target object and method signature, enabling managed, crash-safe function invocation.
@@ -30,6 +31,8 @@ class Program
         combined.Invoke("Alice", 24);
     }
 }
+// Generic Delegate
+public delegate void MyGenericDelegate<T>(T val);
 
 
 // The alarm publishes an event when smoke is detected.
@@ -59,13 +62,12 @@ public static class IntExtensions
     public static bool IsEven(this int num) => num % 2 == 0;
 }
 
-// Indexer and Generic Delegate
+// Indexer 
 public class StringStore
 {
     private List<string> data = new();
     public string this[int i] { get => data[i]; set => data.Insert(i, value); }
 }
-public delegate void MyGenericDelegate<T>(T val);
 
 // Operator Overload + Conversion
 public class Square
@@ -86,6 +88,9 @@ class Program
         var thermo = new Thermostat();
         thermo.TempChanged += (s, e) => Console.WriteLine("Temp: " + e.Temp); // Response by subscribers
         thermo.ChangeTemp(30); // Alarm triggered - publishes the event
+        // The delegate is like the alarm
+        
+        // Some good practices include unsubscribing  and checking for null
 
         // Extension + Indexer
         int val = 10;
@@ -96,18 +101,20 @@ class Program
         Console.WriteLine(store[0]);
 
         // Generic Delegate
-        MyGenericDelegate<string> del = msg => Console.WriteLine(msg.ToUpper()); 
+        MyGenericDelegate<string> del = msg => Console.WriteLine(msg.ToUpper());
         del("generic world");
 
         // Conversion & Operator
         Square sq = new() { Height = 5 };
-        Rectangle rect = sq; // Implicit
-        Square sq2 = (Square)new Rectangle { Height = 10 }; // Explicit
+        Rectangle rect = sq; // Implicit - conversion is safe and no casting needed
+        Square sq2 = (Square)new Rectangle { Height = 10 }; // Explicit - data might be lost and cast is needed
         Console.WriteLine($"Square Height: {sq2.Height}");
 
 
     }
 }
+
+
 
 // Async Example of delegate
 class Program
@@ -148,6 +155,8 @@ class Program
 
 
 // Callback example - if extra time 
+// Think of Notifier as an alarm system. It lets you register what to do when an alarm goes off — you can 
+// plug in different "reactions" without modifying the alarm code.
 public class Notifier
 {
     public delegate void Notify(string message);
