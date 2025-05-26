@@ -3,7 +3,7 @@ Why MudBlazor
 
 Enables developers to build interactive web user interfaces using C#  and razor Syntax
 In this project, I used Blazor WebAssembly which runs entirely in browser via WebAssembly,
-thus everything renders client-side, offering fats and responsive experience .
+thus everything renders client-side, offering fast and responsive experience .
 One of Blazor's powerfuly feature is that it allows C# code and HTML to coexist in the same
 .razor file. 
 */
@@ -55,6 +55,8 @@ protected override async Task OnInitializedAsync()
 {
     await CheckAuthentication();
 }
+
+ShouldRender() // Control when rendering should happen
 
 
 
@@ -122,6 +124,30 @@ This enhances user experience,
 
 
 Snackbar.Add("Company created successfully!", Severity.Success);
+
+
+/*
+Event Handling
+
+Blazor supports C# event handling directly in markup usin @onclick. This is useful for button logic
+*/
+
+<MudButton @onclick="HandleClick">Click Me </ MudButton >
+
+/* 
+Form Validation
+
+Blazor has built-in form validation using EditForm, DataAnnotations, and ValidationMessage. This makes it simplier to build forms 
+with validation rules
+
+
+*/
+
+<EditForm Model="@userModel" OnValidSubmit="SaveUser">
+    <InputText @bind-Value="userModel.Name" />
+    <ValidationMessage For="@(() => userModel.Name)" />
+</EditForm>
+
 
 
 /* Pros and Cons
