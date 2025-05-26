@@ -89,18 +89,58 @@ class Program {
         
         // Timer Callbacks
         timer - new Timer(PrintGreeting, param, 0, 1000) // Tick every second
-        
+
         // Async and Await
+        // When an await is encountered, execution of the method is paused until awaited task completes, without blocking 
+        // the thread
         private async void Button_Click(object sender, EventArgs e) {
- 	        string result = await DoWorkAsync();
- 	        Console.WriteLine(result);
-        }
+    string result = await DoWorkAsync();
+    Console.WriteLine(result);
+}
 
       
     }
 
     static async Task<string> DoWorkAsync() {
-        await Task.Delay(1000);
-        return "Async task complete!";
+    await Task.Delay(1000);
+    return "Async task complete!";
+}
+}
+
+
+// Async Example of delegate
+class Program
+{
+    // Define delegate with out parameter
+    delegate string AsyncOp(int milliseconds, out int threadId);
+
+    // Long-running operation
+    static string LongTask(int ms, out int threadId)
+    {
+        Thread.Sleep(ms); // Simulate delay
+        threadId = Thread.CurrentThread.ManagedThreadId;
+        return $"Finished sleeping for {ms}ms on thread {threadId}";
+    }
+
+    static void Main()
+    {
+        // Create delegate instance
+        AsyncOp op = LongTask;
+
+        int tid; // Will be assigned in EndInvoke
+        Console.WriteLine("Calling BeginInvoke...");
+
+        // Start async call
+        IAsyncResult result = op.BeginInvoke(2000, out tid, null, null);
+
+        Console.WriteLine("Main thread continues working...");
+
+        // Do other work here...
+        Thread.Sleep(500);
+        Console.WriteLine("Main thread is still alive.");
+
+        // Get result and threadId. Important to call so you get results and any exceptions thrown insides the delegate
+        string output = op.EndInvoke(out tid, result);
+        Console.WriteLine(output);
     }
 }
