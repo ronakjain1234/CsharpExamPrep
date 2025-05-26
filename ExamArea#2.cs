@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 // Generics allow you to define classes, interfaces, and methods with a placeholder
-// for a data type. Reduces code reduancy and improces performance
+// for a data type. Reduces code reduancy and improces performance. Not commiting to a data type
 
 // 1. Generic Interface
 public interface IBinaryOperations<T> {

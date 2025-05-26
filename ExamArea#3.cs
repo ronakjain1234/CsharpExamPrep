@@ -44,6 +44,8 @@ public delegate void MyGenericDelegate<T>(T val);
 // Events in C# allow objects to notify other objects when something happens,
 // where event data is passed through a class derived from EventArgs
 // Built in generic delegate type for handling events with custom Event Arguments
+
+// Custom event data clas used to pass extra information when the event is triggered
 public class TempEventArgs : EventArgs
 {
     public int Temp { get; }

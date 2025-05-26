@@ -78,7 +78,7 @@ public interface IInventoryRepo
  	public void Save() => context.SaveChanges();
  }
 
-
+// Assigning a database to specifc operations
 // A usage of the generic class and the tools
  public class InventoryRepo : BaseRepo<Inventory>, IInventoryRepo
  {
@@ -92,4 +92,9 @@ public interface IInventoryRepo
 
  // Will have to create a datbase when creating an instance of these classes
  // If you use the same database, then they will affect the same database
+
+ //LINQ (Language Integrated Query) is a set of C# features that 
+ // allows querying collections (arrays, lists, databases, XML) using 
+ // SQL-like syntax. It's fully integrated into the language and 
+ // supports compile-time checking, IntelliSense, and strong typing.
 
