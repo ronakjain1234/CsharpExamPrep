@@ -60,7 +60,7 @@ context.SaveChanges();
 // Read with LINQ
 var orders = context.Orders.Where(o => o.OrderDate >= DateTime.Today.AddDays(-7)).ToList();
 
-// Repository Pattern
+// Repository Pattern - Encapsulates database operations in a resuable and testable class. It is a design pattern.
 
 // A checklist of special tools for inventory
 public interface IInventoryRepo
@@ -90,6 +90,6 @@ public interface IInventoryRepo
  	}
  }
 
- // Will have to base a datbase when creating an instance of these classes
+ // Will have to create a datbase when creating an instance of these classes
  // If you use the same database, then they will affect the same database
 
